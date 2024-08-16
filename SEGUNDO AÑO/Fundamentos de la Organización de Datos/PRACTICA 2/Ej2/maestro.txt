@@ -1,0 +1,15 @@
+1 5 5 
+Kesselman 
+Federico
+2 3 7 
+Battaglino
+Ignacio
+3 6 4
+Menvielle 
+Baltazar
+4 7 3
+DiLorenzo
+Joaquin
+5 5 5
+Mugica 
+Pedro

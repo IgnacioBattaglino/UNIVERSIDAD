@@ -1,0 +1,10 @@
+1 2 Prueba1
+1 3 Prueba2
+2 4 Prueba3
+2 1 Prueba4
+3 2 Prueba5
+3 4 Prueba6
+3 5 Prueba7
+3 6 Prueba8
+5 7 Prueba9
+5 1 Prueba10

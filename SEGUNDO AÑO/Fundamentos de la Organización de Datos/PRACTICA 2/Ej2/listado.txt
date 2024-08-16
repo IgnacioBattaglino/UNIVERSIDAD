@@ -1,0 +1,3 @@
+Kesselman  Federico cod:1 materias con final:7 materias sin final:4
+Menvielle  Baltazar cod:3 materias con final:7 materias sin final:4
+DiLorenzo Joaquin cod:4 materias con final:7 materias sin final:3

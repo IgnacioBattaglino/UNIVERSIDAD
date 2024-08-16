@@ -1,0 +1,10 @@
+5 5000 Romantica
+Novela 4
+9 4300 Accion
+Novela 5
+10 2500 Romantica
+Novela 1
+30 4000 Misterio
+Novela 2
+45 6000 Ciencia Ficcion
+Novela 3

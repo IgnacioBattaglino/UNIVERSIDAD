@@ -1,0 +1,6 @@
+1 1 1000 100 1500 50 La Plata
+cepa1
+2 1 800 80 2000 35 Berisso
+cepa2
+3 1 600 120 1000 20 CABA
+cepa3

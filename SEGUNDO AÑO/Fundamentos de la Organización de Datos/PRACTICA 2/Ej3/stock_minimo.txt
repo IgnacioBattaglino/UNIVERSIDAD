@@ -1,0 +1,3 @@
+Trapo cod:1 stockACT:-5 stock minimo:5
+Lavandina cod:2 stockACT:-45 stock minimo:10
+AntiGrasa cod:5 stockACT:-75 stock minimo:15

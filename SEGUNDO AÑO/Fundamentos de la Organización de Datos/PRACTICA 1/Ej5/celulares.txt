@@ -1,0 +1,21 @@
+2
+Iphone 7
+Celular Apple IPHONE 7
+Apple
+ 3.0000000000000000E+002
+10
+15
+5
+Iphone 11
+Celular Apple IPHONE 11
+Apple
+ 6.0000000000000000E+002
+20
+15
+10
+Samsung A10
+Celular Samsung A10
+Samsung
+ 4.0000000000000000E+002
+5
+15

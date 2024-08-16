@@ -1,0 +1,10 @@
+1 700 10 5
+Trapo
+2 200 30 10
+Lavandina
+3 500 30 10
+Balde
+4 1000 15 3
+Cif
+5 100 50 15
+AntiGrasa

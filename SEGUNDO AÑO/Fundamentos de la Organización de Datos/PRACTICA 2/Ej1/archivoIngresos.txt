@@ -1,0 +1,9 @@
+1 1000 Juan
+1 2000 Juan
+1 1600 Juan
+2 100 Pedro
+2 1000 Pedro
+3 500 Jose
+4 100 Federico
+4 1050 Federico
+5 100 Ignacio

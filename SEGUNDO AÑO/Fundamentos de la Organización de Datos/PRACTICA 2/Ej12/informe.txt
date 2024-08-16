@@ -1,0 +1,5 @@
+nro_usuario1..........22
+nro_usuario2..........27
+nro_usuario3..........44
+nro_usuario4..........100
+nro_usuario5..........37
