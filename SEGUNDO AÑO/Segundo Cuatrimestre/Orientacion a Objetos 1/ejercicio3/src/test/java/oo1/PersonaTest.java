@@ -1,4 +1,4 @@
-package Practica1;
+package oo1;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

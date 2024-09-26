@@ -1,4 +1,4 @@
-package Practica1;
+package oo1;
 
 /**
  * De esta forma crearemos las clases del ejercicio
