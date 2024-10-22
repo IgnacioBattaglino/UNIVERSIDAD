@@ -27,6 +27,19 @@ public class CajaDeAhorroTest {
     }
 
     @Test
+    void testPuedeExtraerConFondosSuficientes() {
+        caja.depositar(500);
+        assertTrue(caja.puedeExtraer(100), "Debería poder extraer 100 con saldo de 500.");
+    }
+
+    @Test
+    void testPuedeExtraerSinFondosSuficientes() {
+        caja.depositar(500);
+        assertFalse(caja.puedeExtraer(600), "No debería poder extraer 600 con saldo de 500.");
+    }
+
+
+    @Test
     void testExtraerConFondosSuficientes() {
         caja.depositar(500);
         boolean resultado = caja.extraer(100);
@@ -61,4 +74,6 @@ public class CajaDeAhorroTest {
         assertEquals(500, caja.getSaldo(), "El saldo de la caja de ahorro debería seguir siendo 500.");
         assertEquals(0, otraCaja.getSaldo(), "El saldo de la otra caja de ahorro debería seguir siendo 0.");
     }
+
+    
 }
