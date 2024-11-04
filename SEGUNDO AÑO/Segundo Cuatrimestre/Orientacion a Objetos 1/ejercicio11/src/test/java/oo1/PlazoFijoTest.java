@@ -19,7 +19,7 @@ class PlazoFijoTest {
     @Test
     void testValorActual() {
         LocalDate fechaActual = LocalDate.now();
-        long diasTranscurridos = LocalDate.of(2023, 1, 1).until(fechaActual).getDays();
+        long diasTranscurridos = (int) (fechaActual.toEpochDay() - plazoFijo.getFecha().toEpochDay());
         double interesGanado = 1000.0 * (5.0 / 100) * diasTranscurridos;
         double valorEsperado = 1000.0 + interesGanado;
 
