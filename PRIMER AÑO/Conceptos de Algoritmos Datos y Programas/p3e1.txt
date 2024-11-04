@@ -1,0 +1,50 @@
+program Registros;
+type
+str20 = string[20];
+alumno = record
+codigo : integer;
+nombre : str20;
+promedio : real;
+end;
+procedure leer(var alu : alumno);
+begin
+writeln('Ingrese el codigo del alumno');
+readln(alu.codigo);
+
+if (alu.codigo <> 0) then begin
+    writeln('Ingrese el nombre del alumno'); 
+    readln(alu.nombre);
+    
+    writeln('Ingrese el promedio del alumno'); 
+    readln (alu.promedio);
+end;
+end;
+
+procedure maximo (alu:alumno; var pmax:real; var amax:str20);
+begin
+if (alu.promedio>pmax) then begin
+pmax:= alu.promedio;
+amax:= alu.nombre;
+end;
+end;
+{ declaración de variables del programa principal }
+var
+a : alumno;
+cont:integer;
+pmax:real;
+amax:str20;
+{ cuerpo del programa principal }
+begin
+cont:=-1;
+a.codigo:= 1;
+while (a.codigo<>0) do begin
+leer (a);
+maximo (a,pmax,amax);
+cont:=cont+1;
+end;
+
+
+writeln ('la cantidad de alumnos leidos fue ', cont, ' y el alumno con el mayor promedio fue ', amax) ;
+
+
+end.

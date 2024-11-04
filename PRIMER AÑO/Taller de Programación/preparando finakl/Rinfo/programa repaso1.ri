@@ -1,0 +1,146 @@
+programa repaso1
+
+procesos
+  proceso juntarFloresAvenida (S cant:numero)
+  comenzar
+    cant:=0
+    repetir 96
+      mientras (HayFlorEnLaEsquina) 
+        tomarFlor
+        cant:=cant+1
+      mover  
+    BloquearEsquina (PosAv,98)
+    mover   
+    mientras (HayFlorEnLaEsquina) 
+      tomarFlor
+      cant:=cant+1
+    BloquearEsquina (PosAv,99)
+    mover 
+    LiberarEsquina (PosAv,98)
+    mientras (HayFlorEnLaEsquina) 
+      tomarFlor
+      cant:=cant+1
+    mover 
+    LiberarEsquina (PosAv,99)
+    mientras (HayFlorEnLaEsquina) 
+      tomarFlor
+      cant:=cant+1
+  fin
+  proceso juntarPapelesCalle (S cant:numero)
+  comenzar
+    cant:=0
+    mientras (HayPapelEnLaEsquina) 
+      tomarPapel
+      cant:=cant+1
+    BloquearEsquina (2,PosCa)
+    mover   
+    mientras (HayPapelEnLaEsquina) 
+      tomarPapel
+      cant:=cant+1
+    BloquearEsquina (3,PosCa)
+    mover 
+    LiberarEsquina (2,PosCa)
+    mientras (HayPapelEnLaEsquina) 
+      tomarPapel
+      cant:=cant+1
+    mover 
+    LiberarEsquina (3,PosCa)
+    repetir 95
+      mientras (HayPapelEnLaEsquina) 
+        tomarPapel
+        cant:=cant+1
+      mover  
+    mientras (HayPapelEnLaEsquina) 
+      tomarPapel
+      cant:=cant+1
+  fin
+
+areas 
+  area1R1: AreaP (2,1,2,97)
+  area2R1: AreaP (2,100,2,100)
+  area1R2: AreaP (3,1,3,97)
+  area2R2: AreaP (3,100,3,100)
+  area1R3: AreaP (1,98,1,98)
+  area2R3: AreaP (4,98,100,98)
+  area1R4: AreaP (1,99,1,99)
+  area2R4: AreaP (4,99,100,99)
+  areaCMP: AreaPC (2,98,3,99)
+  areaFiscal (100,1,100,1)
+
+robots
+  robot rojo
+  variables
+    juntadas,id:numero
+  comenzar
+    RecibirMensaje (id,fiscalizador)
+    juntarFloresAvenida (juntadas)
+    EnviarMensaje (id, fiscalizador)
+    EnviarMensaje (juntadas,fiscalizador)
+  fin
+  robot azul
+  variables
+    juntados,id:numero
+  comenzar
+    RecibirMensaje (id,fiscalizador)
+    juntarPapelesCalle (juntados)
+    EnviarMensaje (id, fiscalizador)
+    EnviarMensaje (juntados,fiscalizador)
+  fin
+  robot fiscal 
+  variables
+  cant,id:numero 
+  cantRojo,cantAzul:numero  
+  comenzar 
+    EnviarMensaje (1,robot1)
+    EnviarMensaje (2,robot2)
+    EnviarMensaje (3,robot3)
+    EnviarMensaje (4,robot4)
+    repetir 4
+      RecibirMensaje (id,*)
+      si (id=1)
+        RecibirMensaje (cant, robot1)
+        cantRojo:=cantRojo+cant  
+      else 
+        si (id=2)  
+          RecibirMensaje (cant, robot2)
+          cantRojo:=cantRojo+cant  
+        else 
+          si (id=3)  
+            RecibirMensaje (cant, robot3)
+            cantAzul:=cantAzul+cant  
+          else 
+            si (id=3)  
+              RecibirMensaje (cant, robot4)
+              cantAzul:=cantAzul+cant
+    si (cantRojo>cantAzul)
+      Informar ("Rojo")
+    else
+      Informar ("Azul")                 
+  fin
+
+variables
+  robot1: rojo
+  robot2: rojo
+  robot3: azul
+  robot4: azul
+  fiscalizador: fiscal
+comenzar
+  AsignarArea (robot1, area1R1)
+  AsignarArea (robot1, area2R1)
+  AsignarArea (robot2, area1R2)
+  AsignarArea (robot2, area2R2)
+  AsignarArea (robot3, area1R3)
+  AsignarArea (robot3, area2R3)
+  AsignarArea (robot4, area1R4)
+  AsignarArea (robot4, area2R4)
+  AsignarArea (fiscal, areaFiscal)
+  AsignarArea (robot1, areaCMP)
+  AsignarArea (robot2, areaCMP)
+  AsignarArea (robot4, areaCMP)
+  AsignarArea (robot3, areaCMP)
+  Iniciar (robot1,2,1)
+  Iniciar (robot2,3,1)
+  Iniciar (robot3,1,98)
+  Iniciar (robot4,1,99)
+  Iniciar (fiscal,100,1)  
+fin

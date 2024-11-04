@@ -1,0 +1,85 @@
+programa repaso4
+
+procesos
+  proceso vaciarEsquina (ES cant)
+  comenzar
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+      cant:=cant+1
+  fin
+  proceso deposito (E cant:numero; E PosA:numero; E PosC:numero)
+  comenzar
+    BloquearEsquina (10,10)
+    Pos (10,10)
+    repetir cant 
+      depositarFlor
+    Pos (PosA,PosC)
+    LiberarEsquina (10,10)
+  fin
+areas
+  area1 AreaP (1,1,1,1)
+  area2 AreaP (2,1,2,1)
+  area3 AreaP (3,1,3,1)
+  area4 AreaP (4,1,4,1)
+  areaCMP AreaPC (40,40,60,60)
+  areaCMP2 AreaPC (10,10,10,10)
+robots
+  robot florero
+  variables
+    cant,posA,posC:numero
+  comenzar
+    cant:=0
+    Repetir 8
+      RecibirMensaje (posA,fiscal)
+      RecibirMensaje (posC,fiscal)
+      Pos (posA,posC)
+      vaciarEsquina (cant)
+    deposito (cant,PosAv,PosCa)  
+    EnviarMensaje (cant,fiscal)
+  fin
+  robot fiscalizador
+  variables
+   posA,posC,aux,cant:numero
+  comenzar
+    cant:=0
+    Repetir 8
+      Random (posA,40,60)
+      Random (posC,40,60)
+      EnviarMensaje(posA,robot1)
+      EnviarMensaje(posC,robot1)
+    Repetir 8
+      Random (posA,40,60)
+      Random (posC,40,60)
+      EnviarMensaje(posA,robot2)
+      EnviarMensaje(posC,robot2)
+    Repetir 8
+      Random (posA,40,60)
+      Random (posC,40,60)
+      EnviarMensaje(posA,robot3)
+      EnviarMensaje(posC,robot3)    
+    Repetir 3 
+      RecibirMensaje (aux,*) 
+      cant:=cant+aux 
+    Informar (cant) 
+  fin
+variables
+  robot1: florero
+  robot2: florero
+  robot3: florero
+  fiscal: fiscalizador
+comenzar
+  AsignarArea (robot1,area1)
+  AsignarArea (robot1,areaCMP)
+  AsignarArea (robot1,areaCMP2)
+  AsignarArea (robot2,area2)
+  AsignarArea (robot2,areaCMP)
+  AsignarArea (robot2,areaCMP2)
+  AsignarArea (robot3,area3)
+  AsignarArea (robot3,areaCMP)
+  AsignarArea (robot3,areaCMP2)
+  AsignarArea (fiscal, area4)
+  Iniciar (robot1, 1,1)
+  Iniciar (robot2, 2,1)
+  Iniciar (robot3, 3,1)
+  Iniciar (fiscal, 4,1)
+fin

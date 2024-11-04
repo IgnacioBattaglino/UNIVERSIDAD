@@ -1,0 +1,91 @@
+program p2p2e9;
+
+procedure leeralumno (var num: integer; var apellido, nombre : string);
+begin
+write ('ingrese el nombre del alumno');
+
+readln (nombre);
+
+write ('ingrese el apellido del alumno');
+
+readln (apellido);
+
+write ('ingrese el numero de inscripcion del alumno');
+
+readln (num);
+
+end;
+
+procedure maximos (var nombre, max1, max2: string; var nummax1, nummax2, num :integer);
+begin
+if (num>nummax1) then begin
+nummax2:=nummax1;
+nummax1:=num; 
+max2:=max1;
+max1:= nombre;
+end
+else
+if (num>nummax2) then begin
+nummax2:=num;
+max2:=nombre;
+end 
+end;
+
+procedure minimos (var apellido, min1, min2: string; var nummin1, nummin2, num :integer);
+begin
+if (num<nummin1) then begin
+nummin2:=nummin1;
+nummin1:=num; 
+min2:=min1;
+min1:= apellido;
+end
+else
+if (num<nummin2) then begin
+nummin2:=num;
+min2:=apellido;
+end 
+end;
+
+
+function porcentaje (total, pares:integer): integer;
+begin
+porcentaje := (pares * 100) div total;
+end;
+
+var total, pares, nummin1, nummin2, nummax1, nummax2, num: integer;
+var min1, min2, max1, max2, apellido, nombre : string;
+
+
+begin
+pares:=0 ;
+total:= 0;
+nummin1:= 32767;
+nummin2:= 32766;
+nummax1:=-1;
+nummax2:=0;
+min1:='a';
+min2:='a';
+max1:='a';
+max2:='a';
+num:=0;
+nombre:= 'axel' ;
+apellido:= 'abnsahs';
+while (num<>1200) do 
+begin
+leeralumno (num, apellido, nombre);
+
+if (num mod 2= 0) then 
+pares:= pares+1 ;
+
+maximos (nombre, max1, max2, nummax1, nummax2, num);
+minimos (apellido, min1, min2, nummin1, nummin2, num);
+total:= total+1
+end;
+
+
+writeln ('el alumno con el numero de inscripcion mas grande se llama ', max1, ', el segundo numero de inscripcion mas grande es el de, ', max2 );
+
+writeln ('el alumno con el numero de inscripcion mas chico se apellida ', min1, ', el segundo numero de inscripcion mas chico es el de, ', min2 );
+
+writeln ('el porcentaje de numeros de inscripcion pares es de ', porcentaje (total, pares), '%'); 
+end. 
