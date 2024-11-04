@@ -1,0 +1,80 @@
+programa repaso5
+
+procesos
+  proceso dejarPapeles (S cant:numero)
+  comenzar
+    Random (cant,1,5)
+    BloquearEsquina (100,1)
+    Pos (100,1)
+    repetir cant
+      depositarPapel
+    Pos (13,1)
+    LiberarEsquina (100,1)  
+  fin
+  proceso informar (E id:numero; E cant:numero)
+  comenzar
+    si (id=1)
+      EnviarMensaje (cant,robot1)
+    sino
+      si (id=2)
+        EnviarMensaje (cant,robot2)
+      sino
+        EnviarMensaje (cant,robot3)
+  fin
+  proceso recolectar (E cant:numero; E PosA:numero; E PosC:numero)
+  comenzar
+    repetir cant
+      BloquearEsquina (100,1)
+      Pos (100,1)
+      tomarPapel
+      Pos (PosA,PosC)
+      LiberarEsquina (100,1)
+  fin
+areas
+  area1: AreaP (10,1,10,1)
+  area2: AreaP (11,1,11,1)
+  area3: AreaP (12,1,12,1)
+  areaF: AreaP (13,1,13,1)
+  areaCMP: AreaC (100,1,100,1)
+robots
+  robot cliente
+  variables 
+    cant,id:numero
+  comenzar
+    RecibirMensaje (id,fiscal)
+    repetir 4
+      EnviarMensaje (id,fiscal)
+      RecibirMensaje (cant,fiscal)
+      recolectar (cant, PosAv, PosCa)
+  fin
+  robot servidor
+  variables
+    id:numero
+  comenzar
+    EnviarMensaje (1,robot1)
+    EnviarMensaje (2,robot2)
+    EnviarMensaje (3,robot3)
+    repetir 12
+      RecibirMensaje (id,*)
+      dejarPapeles (cant)
+      informar (id,cant)
+  fin
+variables
+  robot1: cliente
+  robot2: cliente
+  robot3: cliente
+  fiscal: servidor
+comenzar
+  AsignarArea (robot1,area1)
+  AsignarArea (robot1,areaCMP)
+  AsignarArea (robot2,area2)
+  AsignarArea (robot2,areaCMP)
+  AsignarArea (robot3,area3)
+  AsignarArea (robot3,areaCMP)
+  AsignarArea (fiscal, areaCMP)
+  AsignarArea (fiscal, areaF)
+  Iniciar (robot1,10,1)
+  Iniciar (robot2,11,1)
+  Iniciar (robot3,12,1)
+  Iniciar (fiscal,13,1)
+fin

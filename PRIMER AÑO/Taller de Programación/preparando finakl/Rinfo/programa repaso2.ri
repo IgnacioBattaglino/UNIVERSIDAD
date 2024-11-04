@@ -1,0 +1,89 @@
+programa repaso2
+
+procesos
+  proceso vaciarEsquina (ES cantF:numero)
+  comenzar
+    mientras (HayFlorEnLaEsquina) 
+      tomarFlor
+      cantF:=cantF+1
+    mientras (HayPapelEnLaEsquina)
+      tomarPapel
+  fin
+  proceso 10esquinas (ES cant:numero)
+  comenzar
+    repetir 9 
+      mover    
+      vaciarEsquina (cant)
+  fin 
+  proceso vaciarBolsa (E cant:numero; E posA, posC: numero)
+  comenzar
+    BloquearEsquina (50,50)
+    pos (50,50)  
+    repetir cant
+      depositarFlor
+    pos (posAa,posC)
+    LiberarEsquina (50,50)
+  fin  
+areas
+  area1: AreaP (1,1,100,1)
+  area2: AreaP (1,2,100,2)
+  area3: AreaP (1,3,100,3)
+  area4: AreaP (1,4,1,4)
+  areaCMP: AreaC (50,50,50,50)
+robots
+  robot recolector
+  variables 
+  cant:numero
+  id:numero
+  seguir:numero
+  comenzar
+    RecibirMensaje (id,fiscal)
+    cant:=0
+    derecha
+    repetir 10
+      vaciarEsquina (cant)
+      10esquinas (cant)
+      vaciarBolsa (cant, posAv, posCa)
+      si (id=1)
+        EnviarMensaje(1,robot2)
+      sino 
+        si (id=2)
+          EnviarMensaje (1,robot3)
+        sino 
+          si (id=3)
+            EnviarMensaje (1,robot1)
+      RecibirMensaje (seguir,*)
+    EnviarMensaje (1, fiscal)    
+  fin
+  robot fiscalizador 
+  variables
+  cant,terminaron:numero
+  comenzar
+    EnviarMensaje (1,robot1)
+    EnviarMensaje (2,robot2)
+    EnviarMensaje (3,robot3)
+    repetir 3
+      RecibirMensaje (terminaron,*)
+    pos (50,50)
+    vaciarEsquina (cant)
+    Informar (cant)
+  fin
+variables
+  robot1:recolector
+  robot2:recolector
+  robot3:recolector
+  fiscal:fiscalizador
+comenzar
+  AsignarArea (robot1,area1)
+  AsignarArea (robot1,areaCMP)
+  AsignarArea (robot2,area2)
+  AsignarArea (robot2,areaCMP)
+  AsignarArea (robot3,area3)
+  AsignarArea (robot3,areaCMP)
+  AsignarArea (fiscal,area4)
+  AsignarArea (fiscal,areaCMP)
+  Iniciar (robot1,1,1)
+  Iniciar (robot2,1,2)
+  Iniciar (robot3,1,3)
+  Iniciar (fiscal,1,4)
+fin

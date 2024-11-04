@@ -1,0 +1,115 @@
+program evaluacion1;
+
+type
+
+presente=array [1..12] of boolean;
+
+alumno=record;
+	dni:integer;
+	nya:string;
+	nota:1..10;
+	tur:1..4;
+	pre:presente;
+	end;
+	
+lista: ^nodo;
+
+nodo=record;
+	dato:alumno;
+	sig:lista;
+	end;
+
+cont= array [1..4] of integer;
+
+procedure crearlista (var p:lista);
+
+procedure cargarlista (var p:lista);
+
+function puederendir (v:presente): boolean;
+var ok:boolean; presentes,i:integer;
+begin
+presentes:=0;
+for i:= 1 to 12 do
+begin 
+if (v[i]=true) then presentes:=presentes+1;
+end;
+if (presentes>=8) then ok:= true
+else
+ok:= false;
+
+puederendir:=ok;
+end;
+
+procedure listarinden (p:lista; var p2:lista); 
+begin
+while (p<>nil) do begin
+	if (puederendir (p^.dato) then agregaradelante (p2, p^.dato);
+	p:=p^.sig;
+end;
+end;
+
+procedure agregaradelante (var p:lista, a:alumno);
+var nuevo:lista;
+begin
+new (nuevo);
+nuevo^.dato:=a;
+nuevo^.sig:=nil;
+
+if (p=nil) then p:= nuevo;
+else begin
+nuevo^.sig:=p;
+p:=nuevo;
+end;
+
+end;
+
+function haycero (dni:integer): boolean;
+var dig:integer; encontrado:boolean;
+begin
+encontrado:=false;
+while (dni > 0) and (encontrado=false) do begin
+dig:= dni mod 10;
+if (dig=0) then encontrado:=true;
+else
+dni:= dni div 10;
+end;
+haycero:=encontrado;
+end;
+
+procedure imprimir (p:lista);
+var
+i:integer;
+c:cont;
+canti,max:integer;
+turmax:1..4;
+begin
+max:=-1;
+canti:=0;
+while (p<>nil) do begin
+	if (p^.dato.nota>=8) then writeln ('El alumno ', p^.dato.nya, ' saco 8 o mas en el ingreso');
+	c[p^dato.tur]:=c[p^dato.tur]+1;
+	if (haycero (p^.dato.dni)=false) then canti:=canti+1;
+	p:=p^sig;
+	for i:= 1 to 4 do begin
+	if (c[i]>max) then max:= c[i]; turmax:=i;
+	end;
+	
+	writeln ('el turno con mas alumnos es el ', turmax);
+	writeln ('la cantidad de alumnos que no poseen 0 en su dni es ', canti);
+	
+end;
+end;
+
+var
+pri:lista;
+pri2:lista;
+
+begin
+
+crearlista (pri);
+cargarlista (pri); // se dispone. 
+crearlista (pri2);
+listarinden (pri,pri2);
+imprimir (pri2); 
+
+end.

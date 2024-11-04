@@ -1,0 +1,112 @@
+program p7e3;
+
+type
+
+viaje=record
+	num,cod,km:integer;
+	do,dd:string;
+	end;
+	
+lista=^nodo;
+
+nodo=record;
+	dato:viaje;
+	sig:lista;
+	end;
+	
+lista5k=^nodo;
+	
+procedure crearlista (var p:lista);
+
+procedure cargarlista (var p:lista);
+
+procedure actualizarmax (var m1,m2:integer; var cm1,cm2: integer ; act,actkm:integer);
+begin
+
+if (actkm>m1) then begin
+m2:=m1;
+m1:=actkm;
+cm2:=cm1;
+cm1:=act;
+end
+else begin
+	if (actkm>m2) then begin
+		m2:=actkm;
+		cm2:=act;
+	end;
+end;
+
+procedure agregarordenado (p:lista5k; v:viaje);
+var
+act,ant,nuevo:lista5k;
+begin
+
+new (nuevo);
+nuevo^.dato:=v;
+nuevo^.sig:= nil;
+
+if (p=nil) then
+p:=nuevo;
+
+else begin
+	act:=p;
+	ant:=p;
+	
+	while (act<>nil) and (act^.dato.num < nuevo^.dato.num) do 
+	begin
+		ant:=act;
+		act:=act^.sig;
+	end;
+end;
+
+	if (act=p) then begin
+			nuevo^.sig:=p;
+			p:=nuevo;
+		end
+		
+		else 
+		begin
+			ant^.sig:=nuevo;
+			nuevo^.sig:=actual;
+		end;
+end;
+
+procedure recorrer (p:lista; var pkm:lista5k; var max1,max2: integer);
+var
+suma,actcod,maxkm1,maxkm2:integer;
+begin
+
+while (p<>nil) do 
+		begin
+			suma:=0;
+			actcod:= p^.dato.cod;
+			while (actcod:=p^.dato.cod) do begin
+				suma:=suma+p^.dato.km;
+				if (p^.dato.km>5) then 
+				agregarordenado (pkm, p^.dato);
+				p:=p^.sig; 
+			end;
+			actualizarmax (maxkm1,maxkm2,max1,max2,actcod,suma);
+			
+		end;
+end;
+
+
+
+var
+
+pri:lista;
+pri5k:lista5k;
+max1,max2:integer;
+
+begin
+
+crearlista (pri);
+crearlista (pri5k);
+cargarlista (pri);
+
+recorrer (pri, pri5k, max1, max2);
+
+writeln ('Los dos codigos de auto con mas kilometros fueron ', max1, ' y ',max2);
+
+end.

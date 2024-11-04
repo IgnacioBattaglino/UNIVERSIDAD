@@ -1,0 +1,107 @@
+program evaluacion3;
+
+cat=record;
+	nom:string;
+	pxk:real;
+	end;
+	
+compra=record;
+	dni:integer;
+	cate:1..20;
+	cant:real;
+	end;
+	
+	
+vector= array [1..20] of cat;
+
+lista=^nodo;
+
+nodo=record;
+	dato:compra;
+	sig:lista;
+	end;
+	
+	
+procedure leercompra (var c:compra);
+begin 
+readln (c.dni);
+readln (c.cate);
+readln (c.cant);
+end;
+	
+procedure cargarlistaordenada (var p:lista);
+	var
+	c:compra;
+	act,ant,nuevo:lista;
+	begin
+	
+	while (c.dni<>-1) do begin 
+		leercompra (c);
+		new (nuevo);
+		nuevo^.dato:=c;
+		nuevo^.sig:=nil;
+		
+		if (p=nil) then p:=nuevo;
+		else begin 
+			act:=p;
+			ant:=p;
+			while ((act<>nil) and (act^.dato.dni<nuevo^.dato.dni)) do begin 
+				ant:=act;
+				act:=act^.sig;
+			end;
+		
+			if (act=p) then begin
+				nuevo^.sig=p;
+				p:=nuevo;
+			end
+			
+			else
+			begin 
+				ant^.sig:=nuevo;
+				nuevo^.sig:=act;
+			end;
+	end;
+	end;
+
+actualizarmin (var min:integer, var mind: integer, dni,din:integer);
+begin
+if (din<mind) then begin
+	min:=dni;
+	mind:=din;
+	end;
+end;
+	
+procedure recorrereinformar (v:vector, p:lista);
+var 
+mind,min:integer;
+begin 
+mind:=10000000;
+while (p<>nil) do begin 
+	suma:=0
+	actdni:=p^.dato.dni;
+	while (actdni:=p^.dato.dni) do begin
+		suma:=suma+(p^.dato.kg x v[p^.dato.cate]); 
+		p:=p^.sig;
+		end;
+	actualizarmin (min,mind,actdni,suma);
+end;
+end;
+	
+	
+	
+var
+pri:lista;
+vcat:vector;
+begin 
+
+cargarvector (vcat);
+crearlista (pri);
+cargarlistaordenada (pri);
+
+	
+	
+	
+	
+	
+	
+	

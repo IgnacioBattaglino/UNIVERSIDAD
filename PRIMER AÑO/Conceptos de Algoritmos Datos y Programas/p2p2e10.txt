@@ -1,0 +1,51 @@
+program p2p2e10;
+function esvocal (c:char) : boolean;
+begin 
+esvocal:= (c= 'a') or (c='e') or (c='i') or (c='u') or (c='o') or (c='A') or (c='E') or (c='I') or (c='U') or (c='O') ;
+end; 
+
+procedure cumpleA (var cumple:boolean);
+var 
+c:char;
+
+begin
+writeln ('ingrese la secuencia A'); 
+readln (c); 
+while (c <>'$') and (cumple) do begin;
+    if (not esvocal(c)) then begin
+    cumple := false ;
+    end
+    else
+    readln (c);
+    end;
+end;
+
+procedure cumpleB (var cumple:boolean);
+var
+c:char;
+
+begin
+writeln ('ingrese la secuencia B');
+readln(c);
+while (c<>'#') and (cumple) do begin;
+    if (esvocal (c)) or (c < 'a') or (c>'z') then
+    cumple := false
+    else
+    readln (c);
+    end; 
+  end; 
+var 
+    cumple:boolean;
+
+begin 
+
+cumple:=true;
+cumpleA (cumple);
+if (cumple) then
+    cumpleB (cumple);
+        If (cumple) then 
+        write ('la secuencia se cumple')
+    else
+    write ('la secuencia no se cumple')
+ 
+ end.

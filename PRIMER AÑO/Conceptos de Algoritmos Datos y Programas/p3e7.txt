@@ -1,0 +1,71 @@
+program p3e7;
+type 
+centro=record
+nom,uni:string;
+cinv,cbec:integer;
+end;
+
+procedure leer (var c:centro);
+begin
+writeln ('Ingrese el nombre del centro');
+readln (c.nom);
+writeln ('Ingrese el nombre de la universidad');
+readln (c.uni);
+writeln ('Ingrese la cantidad de investigadores del centro');
+readln (c.cinv);
+writeln ('Ingrese la cantidad de becarios del centro');
+readln (c.cbec);
+end;
+
+procedure maximo (cant:integer; var max:integer; var maxuni:string; uni:string);
+begin
+if (cant>max) then begin
+max:=cant;
+maxuni:=uni;
+end;
+end; 
+
+procedure dosminimos (cant:integer; var bec1,bec2:integer; var uni2,uni1 : string ; uni:string);
+begin
+if (cant<bec1) then begin
+bec2:=bec1;
+bec1:=cant;
+uni2:=uni1;
+uni1:=uni
+end
+else
+begin
+    if (cant<bec2) then begin
+        bec2:=cant;
+        uni2:=uni;
+end;
+end;
+end;
+
+var
+cen:centro;
+cant:integer;
+bec1,bec2,max:integer;
+actual,uni1,uni2,maxuni:string;
+begin
+
+leer (cen);
+while (cen.cinv <>0) do begin
+    actual:=cen.uni;
+    cant:=0;
+    while (actual=cen.uni) do begin
+        cant:=cant+1;
+        maximo (cen.cinv,max,maxuni,cen.uni);
+        dosminimos (cen.cbec,bec1,bec2,uni1,uni2,cen.uni);
+        
+        leer (cen);
+    end;
+    
+writeln ('La cantidad de centros de ' , actual, ' es ', cant);
+end;
+
+writeln ('La universidad con mayor cantidad de investigadores es ', maxuni);
+writeln ('Los dos centros con menor cantidad de becarios son ', uni1, ' y ', uni2);
+
+end. 
+

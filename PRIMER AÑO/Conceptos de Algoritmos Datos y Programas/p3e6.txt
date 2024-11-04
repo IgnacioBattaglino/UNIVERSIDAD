@@ -1,0 +1,88 @@
+program p3e6;
+type
+procesador=record
+    marca:string;
+    linea:string;
+    cores:integer;
+    vel:real;
+    tam:integer;
+end;
+
+procedure leer (var p:procesador);
+begin
+readln (p.marca);
+readln (p.linea);
+readln (p.cores);
+readln (p.vel);
+readln (p.tam);
+end; 
+
+function cantnm (nm:integer): boolean;
+begin
+cantnm:= (nm=14);
+end;
+
+procedure actualizarmax (var marca,max1,max2:string ; cant,maxnm1,maxnm2: integer);
+begin 
+if cant>maxnm1 then 
+begin
+maxnm2:= maxnm1;
+maxnm1:= cant;
+max2:= max1;
+max1:= marca;
+end
+else 
+begin
+if cant>maxnm2 then 
+    begin
+    maxnm2:=cant;
+    max2:=marca;
+    end;
+end;
+
+end;
+
+
+var
+proc:procesador;
+cantmc,cant:integer;
+actual:string;
+max1, max2:string;
+maxnm1,maxnm2: integer;
+
+begin 
+maxnm1:=-1;
+maxnm2:=-2;
+proc.cores:= 1;
+cantmc:=0;
+leer (proc); 
+while (proc.cores <> 0) do begin
+      actual:= proc.marca;
+      cant:= 0;
+    while (proc.marca = actual) do begin
+        if (cantnm (proc.tam)) then
+            cant := cant+1;
+        if (proc.marca='Amd') or (proc.marca='Intel') then begin
+            if (proc.cores>1) then begin
+                if (proc.vel>2) then
+                    cantmc:=cantmc+1; 
+            end;
+        end; 
+    leer (proc);
+    end;
+    actualizarmax (proc.marca,max1,max2,cant,maxnm1,maxnm2);
+    
+end;
+
+writeln ('Las dos marcas con mayor cantidad de procesadores de transistores de 14nm son ', max1, ' y ', max2 );
+
+writeln ('Los procesadores multicore de Intel o Amd, con mas de 2Ghz son ', cantmc);
+
+end.
+
+    
+    
+    
+
+    
+

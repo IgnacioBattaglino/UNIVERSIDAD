@@ -1,0 +1,115 @@
+MODULOS
+
+LISTAS
+
+procedure crearlista (var p:lista, var u:lista); // p es el primer elemento de la lista u es el ultimo
+begin
+p:=nil;
+u:=p;
+end;
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+procedure recorrerlista (p:lista); // pasar siempre p por valor para no modificarlo. 
+begin
+	while (p<>nil) do 
+		begin
+			write (p^.elem);
+			p:=p^.sig; 
+		end;
+end;
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+procedure agregaradelante (var p:lista, elemento); 
+var nuevo:lista;
+begin 
+
+new (nuevo); 
+nuevo^.elem:= elemento;
+nuevo^.sig:=nil;
+
+if (p = nil) then p:=nuevo
+else begin
+	nuevo^.sig:=p;
+	p:=nuevo;
+	end;
+end; 
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+procedure agregaralfinal (var p:lista, var u:lista, elemento);
+var nuevo:lista;
+
+begin
+new (nuevo);
+nuevo^.elem:= elemento;
+nuevo^.sig:=nil;
+
+if (p=nil) then p:=nuevo; u:=nuevo;
+else begin
+	u^.sig:=nuevo
+	u:=nuevo; 
+	end;
+end;
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+function buscar_lista_desordenada (p:lista, quebusco:elemento):boolean;
+var
+encontre:boolean;
+
+begin
+encontre:= false;
+while ((p <> nil) and (encontre = false)) do
+begin
+	if (p^.elem = quebusco) then 
+		encontre:= true
+	else 
+		p:= p^.sig;
+end;
+buscar:= encontre;
+end;
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+function buscar_lista_ordenada (p:lista, quebusco:elemento):boolean;
+
+var
+encontre:boolean;
+
+begin
+encontre:= false;
+while ((p <> nil) and (p^.elem<=quebusco) and (encontre = false)) do
+begin
+	if (p^.elem = quebusco) then 
+		encontre:= true
+	else 
+		p:= p^.sig;
+end;
+buscar:= encontre;
+end;
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+procedure eliminar (var p:lista ; var u:lista ; queelimino:elemento);
+
+var 
+actual, ant:lista;
+
+begin
+actual:=p;
+while (actual<>nil) and (actual^.elem <> queelimino) do begin
+	ant:=actual;
+	actual:=actual^sig;
+	end;
+	if (actual <> nil) then
+		if (actual = p) then
+			p:= p^.sig;
+		else
+			ant^.sig:=actual^.sig;
+			
+	dispose (actual);
+	end;
+end;
+

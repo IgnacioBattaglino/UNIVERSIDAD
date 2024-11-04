@@ -1,0 +1,132 @@
+program examen2;
+
+cont= array [1..12] of integer;
+
+compra=record;
+	mon:real;
+	mes:1..12;
+	kg:real;
+	fri:string;
+	end;
+	
+lista=^nodo;
+
+nodo=record;
+	dato:compra;
+	sig:lista;
+	end;
+	
+procedure crearlista (var l:lista);
+begin
+l:=nil;
+end;
+
+procedure leercompra (var c:compra);
+begin
+
+readln (c.mon);
+readln (c.mes);
+readln (c.kg);
+readln (c.fri);
+
+end;
+
+procedure cargarlistaordenada (var l:lista);
+var 
+c:compra;
+act,ant,nuevo:lista;
+begin
+
+repeat
+
+leercompra (c);
+new (nuevo);
+nuevo^.dato:=c;
+nuevo^.sig:=nil;
+
+if (l=nil) then 
+l:=nuevo;
+else begin
+	ant:=l;
+	act:=l;
+	while (act<>nil) and (act^.dato.fri<nuevo^.dato.fri) do begin
+		ant:=act;
+		act:=act^.sig;
+	end;
+	
+	if (act=l) then 
+		begin
+			nuevo^.sig:=l;
+			l:=nuevo;
+			end
+		else begin 
+			ant^sig:=act;
+			nuevo^.sig:=actual;
+		end;
+	end;
+
+until (c.kg=100);
+end;
+
+procedure dosmin (c:cont, var min1,min2: 1..12);
+var 
+i,m1,m2:integer;
+
+begin
+m1:=9999;
+m2:=9999; 
+for i:= 1 to 12 do begin 
+	if (c[i]<m1) then begin 
+		min2:=min1;
+		min1:=i;
+		m2:=m1;
+		m1:=c[i]
+		end
+	else if (c[i]<m2) then begin 
+		min2:=i;
+		m2:=c[i];
+	end;
+end;
+
+function promedio (tot:real; cant:integer): real;
+	begin 
+	promedio:= tot/cant;
+	end;
+	
+procedure recorrerinformando (p:lista);
+var
+actfri:string;
+sumasep,montot:real;
+c:cont;
+min1,min2:= 1..12;
+begin
+
+while (p<>nil) do begin 
+	montot:=0;
+	actfri:=p^.dato.fri;
+	while (actfri=p^.dato.fri) do 
+	begin 
+		montot:=montot+p^.dato.mon;
+		c[p^.dato.mes]:=c[p^.dato.mes]+1;
+		if (c[p^.dato.mes]=9) then sumasep:=sumasep+p^.dato.mon;
+		p:=p^.sig;
+	end;
+	if (montot>45000) then writeln ('el frigorifico ', actfri, ' supero los 45000 pesos');
+end;
+
+dosmin (cont,min1,min2);
+writeln ('Los dos meses con menor cantidad de compra fueron el mes ', min1, ' y el mes ', min2);	
+
+writeln ('El promedio de las compras en el mes de septiembre fue ', promedio (sumasep, c[9]);
+	
+var
+pri:lista;
+
+begin
+
+crearlista (pri);
+cargarlistaordenada (pri);
+recorrerinformando (pri);
+
+end.
+	

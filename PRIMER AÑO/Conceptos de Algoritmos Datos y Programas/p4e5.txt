@@ -1,0 +1,82 @@
+program p4e5;
+const
+dimF=100;
+type
+
+vector=array [1..dimF] of integer;
+
+procedure max (v:vector; var maxi,posmax:integer);
+var i:integer;
+begin
+
+for i:= 1 to dimF do begin
+
+if (v[i]>maxi) then begin
+    maxi:=v[i];
+    posmax:=i;
+end; 
+end;
+end;
+
+procedure min (v:vector; var mini,posmin:integer);
+var i:integer;
+begin
+
+for i:= 1 to dimF do begin
+
+if (v[i]<mini) and (v[i]<>0) then begin
+    mini:=v[i];
+    posmin:=i;
+end; 
+end;
+end;
+
+procedure leer (var v:vector);
+var
+pos:integer;
+begin
+pos:=1;
+
+Repeat 
+readln (v[pos]);
+pos:=pos+1
+until (v[pos-1]=0); 
+
+end;
+
+procedure intercambio (x,y:integer;v:vector);
+var
+save,posy,posx,pos:integer;
+begin 
+pos:=1;
+
+while (v[pos] <> x) do 
+    pos:=pos+1;
+
+posx:=pos;
+pos:=1;
+while (v[pos] <> y) do
+    pos:=pos+1;
+    
+posy:=pos;
+
+save:= v[posx];
+v[posx]:= v [posy];
+v [posy]:=save; 
+
+end;
+
+var
+v:vector;
+maxi,mini,posmax,posmin:integer;
+begin
+mini:= 1000;
+maxi:=-1;
+leer (v);
+max (v,maxi,posmax);
+min (v,mini,posmin);
+intercambio (maxi,mini,v);
+
+writeln ('El elemento máximo ', maxi, ' que se encontraba en la posición ', posmax, ' fue intercambiado con el elemento mínimo ',mini,' que se encontraba en la posición ', posmin);
+
+end.

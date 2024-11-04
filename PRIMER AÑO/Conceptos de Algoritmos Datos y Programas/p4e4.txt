@@ -1,0 +1,115 @@
+program p4e4;
+const
+dimF=100;
+type
+
+vector=array [1..dimF] of integer;
+
+procedure posicion (v:vector; x:integer); 
+var 
+pos:integer;
+begin
+pos:=1;
+repeat 
+if (v[pos]=x) then 
+    write ('la pos es', pos);
+pos:=pos+1;
+
+until (v[pos]=x) or (pos=100);
+
+if (pos=100) and (v[pos]<>x) then 
+write ('-1');
+
+end;
+
+procedure asignar_numeros(var v:vector);
+var
+  i: integer;
+begin
+  for i := 0 to High(v) do
+    v[i] := Random(100); 
+end;
+
+procedure intercambio (x,y:integer;v:vector);
+var
+save,posy,posx,pos:integer;
+begin 
+pos:=1;
+
+while (v[pos] <> x) do 
+    pos:=pos+1;
+
+posx:=pos;
+pos:=1;
+while (v[pos] <> y) do
+    pos:=pos+1;
+    
+posy:=pos;
+
+save:= v[posx];
+v[posx]:= v [posy];
+v [posy]:=save; 
+
+end;
+
+function sumaVector (v:vector): integer;
+var
+suma,i:integer;
+begin
+suma:= 0;
+
+for i := 1 to dimF do 
+suma:= suma + v[i]; 
+
+sumaVector:= suma; 
+
+end; 
+
+
+function promedio (v:vector): real;
+
+begin
+
+promedio := sumaVector (v) / dimF; 
+end;
+
+function max (v:vector): integer;
+var maxi,i:integer;
+begin
+maxi:=-1;
+
+for i:= 1 to dimF do begin
+
+if (v[i]>maxi) then 
+    maxi:=v[i];
+
+end; 
+max:=maxi; 
+end;
+
+
+function min (v:vector): integer;
+var mini,i:integer;
+begin
+mini:=10000;
+
+for i:= 1 to dimF do begin
+
+if (v[i]<mini) then 
+    mini:=v[i];
+    
+end; 
+min:=mini;
+end;
+
+var
+
+v:vector;
+
+begin
+Randomize;
+asignar_numeros (v);
+posicion (v,10);
+
+end.
+
