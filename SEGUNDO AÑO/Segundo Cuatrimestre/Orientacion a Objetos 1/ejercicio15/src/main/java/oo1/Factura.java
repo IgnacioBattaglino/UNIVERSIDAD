@@ -37,5 +37,9 @@ public class Factura {
     public void setMontoFinal(double montoFinal) {
         this.montoFinal = montoFinal;
     }
+
+    public boolean isBonificacion() {
+        return bonificacion;
+    }
     
 }
