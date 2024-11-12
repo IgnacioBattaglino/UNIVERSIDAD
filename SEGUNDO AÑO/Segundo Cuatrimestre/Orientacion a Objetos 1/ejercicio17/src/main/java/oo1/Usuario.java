@@ -1,6 +1,5 @@
 package oo1;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,14 +14,6 @@ public class Usuario {
         this.direccion = direccion;
         DNI = dNI;
         propiedades = new HashSet<>();
-    }
-
-    public boolean reservar (Propiedad propiedad, LocalDate from, LocalDate to){
-        if (propiedad.isAvailable(from, to)) {
-            propiedad.reservar(new DateLapse(from, to));
-            return true;
-        }
-        return false;
     }
 
     public String getNombre() {
@@ -50,6 +41,11 @@ public class Usuario {
         this.propiedades = propiedades;
     }
 
+    public double calcularIngresos (DateLapse lapso){
+        return propiedades.stream()
+        .mapToDouble(propiedad -> propiedad.totalReservasInLapse(lapso))
+        .sum() * 0.75 ;
+    }
 
     
 }

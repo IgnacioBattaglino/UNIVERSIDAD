@@ -1,6 +1,5 @@
 package oo1;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +16,26 @@ public class Propiedad {
         this.reservas = new ArrayList<>();
     }
 
-    public void reservar (DateLapse periodo) {
-        this.reservas.add(new Reserva(this,precioPorNoche,periodo));
+    public Reserva reservar (DateLapse periodo, Usuario inquilino) {
+        if (isAvailable(periodo)) {
+            Reserva r = new Reserva (precioPorNoche,periodo,inquilino);
+            this.reservas.add(r);
+            return r;
+        }
+        return null;
     }
 
-    public boolean isAvailable (LocalDate from, LocalDate to) {
-        DateLapse periodo = new DateLapse (from, to);
-        return ! this.reservas.stream()
-        .map (reserva -> reserva.getPeriodo())
-        .anyMatch(p -> p.includesLapse(periodo));
+    public boolean eliminarReserva (Reserva unaReserva) {
+        if (unaReserva.isNow()) return false;
+        
+        reservas.remove(unaReserva);
+
+        return true;
+    }
+
+    public boolean isAvailable (DateLapse periodo) {
+        return  this.reservas.stream()
+        .noneMatch(r -> r.reservaInDateLapse(periodo));
     }
 
     public String getDireccion() {
@@ -47,5 +57,11 @@ public class Propiedad {
         this.precioPorNoche = precioPorNoche;
     }
 
+    public double totalReservasInLapse (DateLapse lapso){
+        return this.reservas.stream()
+        .filter (reserva -> reserva.reservaInDateLapse(lapso) == true)
+        .mapToDouble (reserva -> reserva.getPrecioTotal())
+        .sum() ;
+    }
     
 }

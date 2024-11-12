@@ -32,7 +32,7 @@ public class DateLapse implements DateLapseInterface{
         return (from.isBefore(other)|| from.isEqual(other)) && (to.isAfter(other)||to.isEqual(other));
     }
 
-    public boolean includesLapse(DateLapse periodo) {
+    public boolean overlaps(DateLapse periodo) {
         return (this.from.isBefore(periodo.getTo()) || this.from.isEqual(periodo.getTo())) &&
                (this.to.isAfter(periodo.getFrom()) || this.to.isEqual(periodo.getFrom()));
     }

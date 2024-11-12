@@ -1,14 +1,20 @@
 package oo1;
 
+import java.time.LocalDate;
+
 public class Reserva {
     private DateLapse periodo;
-    private double precioTotal;
-    private Propiedad propiedad;
+    private double precioPorNoche;
+    private Usuario inquilino;
 
-    public Reserva(Propiedad propiedad, double precioPorNoche, DateLapse periodo) {
+    public Reserva(double precioPorNoche, DateLapse periodo, Usuario inquilino) {
         this.periodo = periodo;
-        this.precioTotal = periodo.sizeInDays()*precioPorNoche;
-        this.propiedad=propiedad;
+        this.precioPorNoche = precioPorNoche; 
+        this.inquilino = inquilino;
+    }
+
+    public boolean isNow (){
+        return this.periodo.includesDate(LocalDate.now());
     }
 
     public DateLapse getPeriodo() {
@@ -17,19 +23,26 @@ public class Reserva {
     public void setPeriodo(DateLapse periodo) {
         this.periodo = periodo;
     }
+    public double getPrecioPorNoche() {
+        return precioPorNoche;
+    }
+    public void setPrecioPorNoche(double precioPorNoche) {
+        this.precioPorNoche = precioPorNoche;
+    }
     public double getPrecioTotal() {
-        return precioTotal;
-    }
-    public void setPrecioTotal(double precioTotal) {
-        this.precioTotal = precioTotal;
+        return this.periodo.sizeInDays()*this.precioPorNoche;
     }
 
-    public Propiedad getPropiedad() {
-        return propiedad;
-    }
-    public void setPropiedad(Propiedad propiedad) {
-        this.propiedad = propiedad;
+    public boolean reservaInDateLapse (DateLapse lapso) {
+        return this.periodo.overlaps(lapso);
     }
 
-    
+    public Usuario getInquilino() {
+        return inquilino;
+    }
+
+
+    public void setInquilino(Usuario inquilino) {
+        this.inquilino = inquilino;
+    }
 }
