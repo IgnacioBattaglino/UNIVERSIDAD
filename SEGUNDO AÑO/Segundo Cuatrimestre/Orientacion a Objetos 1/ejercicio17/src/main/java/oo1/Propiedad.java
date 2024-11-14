@@ -8,12 +8,14 @@ public class Propiedad {
     private String nombre;
     private double precioPorNoche;
     private List<Reserva> reservas;
+    private PoliticaDeCancelacion politica;
 
-    public Propiedad(String direccion, String nombre, double precioPorNoche) {
+    public Propiedad(String direccion, String nombre, double precioPorNoche, PoliticaDeCancelacion politica) {
         this.direccion = direccion;
         this.nombre = nombre;
         this.precioPorNoche = precioPorNoche;
         this.reservas = new ArrayList<>();
+        this.politica = politica;
     }
 
     public Reserva reservar (DateLapse periodo, Usuario inquilino) {
@@ -25,12 +27,10 @@ public class Propiedad {
         return null;
     }
 
-    public boolean eliminarReserva (Reserva unaReserva) {
-        if (unaReserva.isNow()) return false;
-        
+    public double eliminarReserva (Reserva unaReserva) {
+        if (unaReserva.isNow()) return 0;
         reservas.remove(unaReserva);
-
-        return true;
+        return politica.devolverDinero(unaReserva);
     }
 
     public boolean isAvailable (DateLapse periodo) {
@@ -38,6 +38,14 @@ public class Propiedad {
         .noneMatch(r -> r.reservaInDateLapse(periodo));
     }
 
+    public double totalReservasInLapse (DateLapse lapso){
+        return this.reservas.stream()
+        .filter (reserva -> reserva.reservaInDateLapse(lapso))
+        .mapToDouble (reserva -> reserva.getPrecioTotal())
+        .sum() ;
+    }
+
+    
     public String getDireccion() {
         return direccion;
     }
@@ -56,12 +64,19 @@ public class Propiedad {
     public void setPrecioPorNoche(double precioPorNoche) {
         this.precioPorNoche = precioPorNoche;
     }
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
 
-    public double totalReservasInLapse (DateLapse lapso){
-        return this.reservas.stream()
-        .filter (reserva -> reserva.reservaInDateLapse(lapso) == true)
-        .mapToDouble (reserva -> reserva.getPrecioTotal())
-        .sum() ;
+    public PoliticaDeCancelacion getPolitica() {
+        return politica;
+    }
+
+    public void setPolitica(PoliticaDeCancelacion politica) {
+        this.politica = politica;
     }
     
 }

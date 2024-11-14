@@ -15,7 +15,11 @@ public class Usuario {
         DNI = dNI;
         propiedades = new HashSet<>();
     }
-
+    public double calcularIngresos (DateLapse lapso){
+        return propiedades.stream()
+        .mapToDouble(propiedad -> propiedad.totalReservasInLapse(lapso))
+        .sum() * 0.75 ;
+    }
     public String getNombre() {
         return nombre;
     }
@@ -40,12 +44,4 @@ public class Usuario {
     public void setPropiedades(Set<Propiedad> propiedades) {
         this.propiedades = propiedades;
     }
-
-    public double calcularIngresos (DateLapse lapso){
-        return propiedades.stream()
-        .mapToDouble(propiedad -> propiedad.totalReservasInLapse(lapso))
-        .sum() * 0.75 ;
-    }
-
-    
 }

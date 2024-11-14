@@ -13,6 +13,14 @@ public class Reserva {
         this.inquilino = inquilino;
     }
 
+    public double getPrecioTotal() {
+        return this.periodo.sizeInDays()*this.precioPorNoche;
+    }
+
+    public boolean reservaInDateLapse (DateLapse lapso) {
+        return this.periodo.overlaps(lapso);
+    }
+
     public boolean isNow (){
         return this.periodo.includesDate(LocalDate.now());
     }
@@ -29,19 +37,9 @@ public class Reserva {
     public void setPrecioPorNoche(double precioPorNoche) {
         this.precioPorNoche = precioPorNoche;
     }
-    public double getPrecioTotal() {
-        return this.periodo.sizeInDays()*this.precioPorNoche;
-    }
-
-    public boolean reservaInDateLapse (DateLapse lapso) {
-        return this.periodo.overlaps(lapso);
-    }
-
     public Usuario getInquilino() {
         return inquilino;
     }
-
-
     public void setInquilino(Usuario inquilino) {
         this.inquilino = inquilino;
     }
