@@ -14,7 +14,7 @@ public class Cliente extends Persona{
     }
 
     public Pedido crearPedido (FormaPago formaPago, FormaEnvio formaEnvio, Producto producto, int cant) {
-        if (producto.tieneUnidades(cant)) {
+        if ((producto.tieneUnidades(cant)) && (cant >0)) {
             producto.reducirStock(cant);
             Pedido pedido = new Pedido(producto, formaPago, formaEnvio, cant);
             pedidos.add(pedido);

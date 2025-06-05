@@ -39,7 +39,7 @@ public class Pedido {
         return this.getCostoProducto() * formaPago.getPorcentajeExtra() + formaEnvio.getCostoEnvio();
     }
     
-    private double getCostoProducto(){
+    public double getCostoProducto(){
         return cant*producto.getPrecio();
     }
     

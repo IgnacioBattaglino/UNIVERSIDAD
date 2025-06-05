@@ -4,7 +4,7 @@ public class SeisCuotas implements FormaPago{
 
     @Override
     public double getPorcentajeExtra() {
-        return 1.20;
+        return 1.2;
     }
 
 }
